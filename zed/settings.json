@@ -1,0 +1,136 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "git_panel": {
+    "tree_view": true
+  },
+  "edit_predictions": {
+    "mode": "eager"
+  },
+  "context_servers": {
+    
+  },
+  "vim_mode": true,
+  "vim": {
+    "default_mode": "normal",
+    "use_system_clipboard": "never",
+    "use_smartcase_find": true,
+    "toggle_relative_line_numbers": true,
+    "highlight_on_yank_duration": 50,
+    "custom_digraphs": {
+      //插入模式 按下control + k + (对应符号缩写)
+      "fz": "🧟‍♀️"
+    }
+  },
+  "agent": {
+    "always_allow_tool_actions": true,
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-opus-4-6"
+    },
+    "default_profile": "ask",
+    "model_parameters": []
+  },
+  "icon_theme": {
+    "mode": "light",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)"
+  },
+  "telemetry": {
+    "diagnostics": true,
+    "metrics": true
+  },
+  "base_keymap": "VSCode",
+  "minimap": {
+    "show": "auto"
+  },
+  "autosave": "on_focus_change",
+  "buffer_font_fallbacks": [
+    "Courier New",
+    "monospace"
+  ],
+  "buffer_font_family": "JetBrains Mono",
+  "file_types": {},
+  "show_edit_predictions": true,
+  "tab_size": 2,
+  "ui_font_size": 16,
+  "buffer_font_size": 13.0,
+  "theme": {
+    "mode": "dark",
+    "light": "JetBrains Dark",
+    "dark": "JetBrains Dark"
+  },
+  // Disable cursor blink
+  "cursor_blink": false,
+  // Use relative line numbers
+  "relative_line_numbers": "enabled",
+  // Hide the scroll bar
+  // "scrollbar": { "show": "never" },
+  // Prevent the buffer from scrolling beyond the last line
+  "scroll_beyond_last_line": "off",
+  // Allow the cursor to reach the edges of the screen
+  "vertical_scroll_margin": 0,
+  "gutter": {
+    // Disable line numbers completely
+    "line_numbers": true
+  },
+  "command_aliases": {
+    "W": "w",
+    "Wq": "wq",
+    "Q": "q"
+  },
+  "formatter": "language_server",
+  "format_on_save": "on",
+  "code_actions_on_format": {
+    "source.fixAll.eslint": true
+  },
+  "languages": {
+    "JavaScript": {
+      "formatter": "language_server",
+      "format_on_save": "on",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      }
+    },
+    "TypeScript": {
+      "formatter": "language_server",
+      "format_on_save": "on",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      }
+    },
+    "TSX": {
+      "formatter": "language_server",
+      "format_on_save": "on",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      }
+    },
+    "JSX": {
+      "formatter": "language_server",
+      "format_on_save": "on",
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      }
+    }
+  },
+  "lsp": {
+    "eslint": {
+      "settings": {
+        "codeActionOnSave": {
+          "enable": true,
+          "mode": "all"
+        },
+        "format": true,
+        "run": "onSave",
+        "validate": "on"
+      }
+    }
+  }
+}
