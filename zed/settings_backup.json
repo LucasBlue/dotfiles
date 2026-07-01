@@ -37,7 +37,10 @@
     "show": "auto"
   },
   "autosave": "on_focus_change",
-  "buffer_font_fallbacks": ["Courier New", "monospace"],
+  "buffer_font_fallbacks": [
+    "Courier New",
+    "monospace"
+  ],
   "buffer_font_family": "JetBrains Mono",
   "file_types": {},
   "show_edit_predictions": true,

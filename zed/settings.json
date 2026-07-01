@@ -7,7 +7,17 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
   "git_panel": {
+    "dock": "left",
     "tree_view": true
   },
   "edit_predictions": {
@@ -29,12 +39,15 @@
     }
   },
   "agent": {
+    "dock": "right",
     "always_allow_tool_actions": true,
     "default_model": {
+      "effort": "medium",
+      "enable_thinking": true,
       "provider": "zed.dev",
-      "model": "claude-opus-4-6"
+      "model": "claude-opus-4-7"
     },
-    "default_profile": "ask",
+    "default_profile": "write",
     "model_parameters": []
   },
   "icon_theme": {
