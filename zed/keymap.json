@@ -6,137 +6,147 @@
 // To see the default key bindings run `zed: open default keymap`
 // from the command palette.
 [
+  // ── 全局保存 ─────────────────────────────────────────────
   {
-    "context": "Workspace",
+    "context": "Workspace", // 整个工作区(不限编辑器)都生效
     "bindings": {
-      "ctrl-s": "workspace::Save"
-      // "shift shift": "file_finder::Toggle"
+      "ctrl-s": "workspace::Save" // Ctrl+S:保存当前文件
+      // "shift shift": "file_finder::Toggle" // (未启用)快速连按两次 Shift:打开文件查找器
     }
   },
+  // ── 插入模式下用 jk 退回普通模式 ──────────────────────────
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
-      "j k": "vim::NormalBefore"
+      "j k": "vim::NormalBefore" // 插入模式连按 j 再按 k:退回普通模式(光标停在原位,相当于 Esc)
     }
   },
+  // ── 自定义文本对象:引号 / 括号(配合 d、c、y、v 使用)──────
+  // 触发场景:正在输入 a(around)、i(inner)或 cs(change surround)时
   {
     "context": "vim_operator == a || vim_operator == i || vim_operator == cs",
     "bindings": {
-      // Traditional Vim behavior
-      "q": "vim::AnyQuotes",
-      "b": "vim::AnyBrackets",
-      // mini.ai plugin behavior
-      "Q": "vim::MiniQuotes",
-      "B": "vim::MiniBrackets"
+      // 传统 Vim 行为:匹配「最近的一对」
+      "q": "vim::AnyQuotes", // 例:ciq = 修改任意引号( ' " ` )内的内容;daq = 删除含引号
+      "b": "vim::AnyBrackets", // 例:cib = 修改任意括号( () [] {} )内的内容;dab = 连括号一起删
+      // mini.ai 插件风格:匹配更「智能」(能跨行、找最合适的一对)
+      "Q": "vim::MiniQuotes", // 同上,但用 mini.ai 的匹配算法
+      "B": "vim::MiniBrackets" // 同上,但用 mini.ai 的匹配算法
     }
   },
+  // ── 让 h / l / 方向键可以跨行移动 ────────────────────────
   {
-    "context": "VimControl && !menu",
+    "context": "VimControl && !menu", // 普通模式 + 可视模式生效
     "bindings": {
-      // Put key bindings here if you want them to work in normal & visual mode.
-      "left": "vim::WrappingLeft",
-      "right": "vim::WrappingRight",
-      "h": "vim::WrappingLeft",
-      "l": "vim::WrappingRight"
+      "left": "vim::WrappingLeft", // ←:到行首后继续按会跳到「上一行末尾」
+      "right": "vim::WrappingRight", // →:到行尾后继续按会跳到「下一行开头」
+      "h": "vim::WrappingLeft", // h:同上(向左,可跨行)
+      "l": "vim::WrappingRight" // l:同上(向右,可跨行)
     }
   },
+  // ── 用 H / L 快速跳到行首非空字符 / 行尾 ──────────────────
   {
     "context": "vim_mode == normal && !menu",
     "bindings": {
-      // "shift-y": ["workspace::SendKeystrokes", "y $"] // Use neovim's yank behavior: yank to end of line.
+      // "shift-y": ["workspace::SendKeystrokes", "y $"] // (未启用)让 Y 变成「复制到行尾」(neovim 行为)
       "shift-h": [
         "workspace::SendKeystrokes",
         "^"
-      ], // Jump to first non-blank character
+      ], // H(Shift+h):跳到本行第一个非空白字符(等价于 ^)
       "shift-l": [
         "workspace::SendKeystrokes",
         "$"
-      ] // Jump to end of line
+      ] // L(Shift+l):跳到本行行尾(等价于 $)
     }
   },
-  {
-    "context": "vim_mode == insert",
-    "bindings": {
-      // "j k": "vim::NormalBefore" // In insert mode, make jk escape to normal mode.
-    }
-  },
+  // ── 空窗格 / 共享屏幕时的映射(当前为空)─────────────────
   {
     "context": "EmptyPane || SharedScreen",
     "bindings": {
-      // Put key bindings here (in addition to the context above) if you want them to
-      // work when no editor exists.
-      // "space f": "file_finder::Toggle"
+      // 没有打开任何编辑器时的快捷键放这里
+      // "space f": "file_finder::Toggle" // (未启用)空格 f:打开文件查找器
     }
   },
+  // ── 用 Ctrl+w + hjkl 在窗格之间切换焦点 ──────────────────
   {
     "context": "Dock",
     "bindings": {
-      "ctrl-w h": "workspace::ActivatePaneLeft",
-      "ctrl-w l": "workspace::ActivatePaneRight",
-      "ctrl-w k": "workspace::ActivatePaneUp",
-      "ctrl-w j": "workspace::ActivatePaneDown"
-      // ... or other keybindings
+      "ctrl-w h": "workspace::ActivatePaneLeft", // Ctrl+w 然后 h:焦点移到左边的窗格
+      "ctrl-w l": "workspace::ActivatePaneRight", // Ctrl+w 然后 l:焦点移到右边的窗格
+      "ctrl-w k": "workspace::ActivatePaneUp", // Ctrl+w 然后 k:焦点移到上方的窗格
+      "ctrl-w j": "workspace::ActivatePaneDown" // Ctrl+w 然后 j:焦点移到下方的窗格
     }
   },
+  // ── 让 w / ge 按「子词」(驼峰)移动 ─────────────────────
   {
-    "context": "VimControl && !menu && vim_mode != operator",
+    "context": "VimControl && !menu && vim_mode != operator", // 排除算子模式,避免影响 dw 之类
     "bindings": {
-      "w": "vim::NextSubwordStart",
-      // "b": "vim::PreviousSubwordStart",
-      // "e": "vim::NextSubwordEnd",
-      "g e": "vim::PreviousSubwordEnd"
+      // "w": "vim::NextSubwordStart", // w:移到下一个子词开头(fooBar 会在 foo/Bar 间停,而非整词跳过)
+      // "b": "vim::PreviousSubwordStart", // (未启用)b:上一个子词开头
+      // "e": "vim::NextSubwordEnd", // (未启用)e:下一个子词结尾
+      "g e": "vim::PreviousSubwordEnd" // ge:移到上一个子词结尾
+      // 注意:只改了 w 和 ge,b/e 仍是默认整词移动,存在轻微不对称
     }
   },
+  // ── 可视模式下用 S 给选区加「包裹」(surround)───────────
   {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-s": "vim::PushAddSurrounds"
+      "shift-s": "vim::PushAddSurrounds" // 选中文本后按 S,再输入 ( " ' 等:把选区包裹起来
+      // ⚠️ 注意:下面还有一处也把可视模式的 shift-s 映射成了 SneakBackward,
+      //    两者会冲突。实测哪个生效请留意(Zed 中通常后定义的优先)。
     }
   },
+  // ── 用 s / S 做 Sneak 跳转(vim-sneak 风格)──────────────
   {
     "context": "vim_mode == normal || vim_mode == visual",
     "bindings": {
-      "s": "vim::PushSneak",
-      "shift-s": "vim::PushSneakBackward",
-      // "c l c": "editor::ConvertToLowerCamelCase",
-      // "c u c": "editor::ConvertToUpperCamelCase"
+      "s": "vim::PushSneak", // s:向后跳转,输入两个字符,光标直接跳到该组合处
+      "shift-s": "vim::PushSneakBackward" // S:向前(向上)跳转,输入两个字符反向查找
+      // ⚠️ 上面可视模式的 S 是「加包裹」,这里的 S 是「反向 Sneak」,二者在可视模式冲突
+      // "c l c": "editor::ConvertToLowerCamelCase", // (未启用)转小驼峰 lowerCamelCase
+      // "c u c": "editor::ConvertToUpperCamelCase" // (未启用)转大驼峰 UpperCamelCase
     }
   },
+  // ── 可视模式下用 X 做 exchange(vim-exchange 风格)────────
   {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-x": "vim::Exchange"
+      "shift-x": "vim::Exchange" // X:标记一段选区,再对另一段做 X 即可交换两段文本
     }
   },
+  // ── 覆盖常见的系统快捷键(Ctrl+C/V/X 等,牺牲部分 Vim 默认)─
   {
     "context": "Editor && !menu",
     "bindings": {
-      "ctrl-c": "editor::Copy", // vim default: return to normal mode
-      "ctrl-x": "editor::Cut", // vim default: decrement
-      "ctrl-v": "editor::Paste", // vim default: visual block mode
-      "ctrl-y": "editor::Undo", // vim default: line up
-      "ctrl-f": "buffer_search::Deploy", // vim default: page down
-      "ctrl-o": "workspace::Open", // vim default: go back
-      "ctrl-s": "workspace::Save", // vim default: show signature
-      "ctrl-a": "editor::SelectAll", // vim default: increment
-      "ctrl-b": "workspace::ToggleLeftDock" // vim default: down
+      "ctrl-c": "editor::Copy", // Ctrl+C:复制(覆盖 Vim 默认的「回到普通模式」)
+      "ctrl-x": "editor::Cut", // Ctrl+X:剪切(覆盖 Vim 默认的「数字减一」)
+      "ctrl-v": "editor::Paste", // Ctrl+V:粘贴(覆盖 Vim 默认的「块可视模式」)
+      "ctrl-y": "editor::Undo", // Ctrl+Y:撤销 ⚠️ 注意是「撤销」不是「重做」(覆盖 Vim 默认的「向上滚一行」)
+      "ctrl-f": "buffer_search::Deploy", // Ctrl+F:在当前文件内搜索(覆盖 Vim 默认的「下翻页」)
+      "ctrl-o": "workspace::Open", // Ctrl+O:打开文件对话框(覆盖 Vim 默认的「跳转历史后退」)
+      "ctrl-s": "workspace::Save", // Ctrl+S:保存(覆盖 Vim 默认的「显示函数签名」)
+      "ctrl-a": "editor::SelectAll", // Ctrl+A:全选(覆盖 Vim 默认的「数字加一」)
+      "ctrl-b": "workspace::ToggleLeftDock" // Ctrl+B:切换左侧面板显隐(覆盖 Vim 默认的「上翻页」)
+    }
+  },
+  // ── 跳转历史:后退 / 前进 ────────────────────────────────
+  {
+    "context": "(VimControl && !menu)",
+    "bindings": {
+      "' .": "pane::GoBack" // 先按 ' 再按 . :回到上一个光标位置(跳转历史后退)
     }
   },
   {
     "context": "(VimControl && !menu)",
     "bindings": {
-      "' .": "pane::GoBack"
+      "shift-' .": "pane::GoForward" // 先按 "(Shift+')再按 . :跳转历史前进
     }
   },
-  {
-    "context": "(VimControl && !menu)",
-    "bindings": {
-      "shift-' .": "pane::GoForward"
-    }
-  },
+  // ── 终端面板 ────────────────────────────────────────────
   {
     "bindings": {
-      "ctrl-shift-j": "terminal_panel::ToggleFocus"
+      "ctrl-shift-j": "terminal_panel::ToggleFocus" // Ctrl+Shift+J:在编辑器和终端面板之间切换焦点
     }
   }
 ]
