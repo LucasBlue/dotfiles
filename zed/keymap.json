@@ -88,15 +88,6 @@
       // 注意:只改了 w 和 ge,b/e 仍是默认整词移动,存在轻微不对称
     }
   },
-  // ── 可视模式下用 S 给选区加「包裹」(surround)───────────
-  {
-    "context": "vim_mode == visual",
-    "bindings": {
-      "shift-s": "vim::PushAddSurrounds" // 选中文本后按 S,再输入 ( " ' 等:把选区包裹起来
-      // ⚠️ 注意:下面还有一处也把可视模式的 shift-s 映射成了 SneakBackward,
-      //    两者会冲突。实测哪个生效请留意(Zed 中通常后定义的优先)。
-    }
-  },
   // ── 用 s / S 做 Sneak 跳转(vim-sneak 风格)──────────────
   {
     "context": "vim_mode == normal || vim_mode == visual",
