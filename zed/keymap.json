@@ -94,8 +94,7 @@
     "context": "vim_mode == normal || vim_mode == visual",
     "bindings": {
       "s": "vim::PushSneak", // s:向后跳转,输入两个字符,光标直接跳到该组合处
-      "shift-s": "vim::PushSneakBackward" // S:向前(向上)跳转,输入两个字符反向查找
-      // ⚠️ 上面可视模式的 S 是「加包裹」,这里的 S 是「反向 Sneak」,二者在可视模式冲突
+      "g s": "vim::PushSneakBackward" // gs:向前(向上)跳转,输入两个字符反向查找
       // "c l c": "editor::ConvertToLowerCamelCase", // (未启用)转小驼峰 lowerCamelCase
       // "c u c": "editor::ConvertToUpperCamelCase" // (未启用)转大驼峰 UpperCamelCase
     }
@@ -104,7 +103,8 @@
   {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-x": "vim::Exchange" // X:标记一段选区,再对另一段做 X 即可交换两段文本
+      "shift-x": "vim::Exchange", // X:标记一段选区,再对另一段做 X 即可交换两段文本
+      "shift-s": "vim::PushAddSurrounds" // shift+s: visual模式下加包裹
     }
   },
   // ── 覆盖常见的系统快捷键(Ctrl+C/V/X 等,牺牲部分 Vim 默认)─
