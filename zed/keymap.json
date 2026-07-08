@@ -56,7 +56,8 @@
       "shift-l": [
         "workspace::SendKeystrokes",
         "$"
-      ] // L(Shift+l):跳到本行行尾(等价于 $)
+      ], // L(Shift+l):跳到本行行尾(等价于 $)
+      "cmd-k cmd-i": "editor::Hover" // 显示类型或变量描述弹窗
     }
   },
   // ── 空窗格 / 共享屏幕时的映射(当前为空)─────────────────
